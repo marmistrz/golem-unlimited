@@ -261,7 +261,9 @@ impl Handler<SessionUpdate> for HdMan {
 
             match cmd {
                 Command::Exec { executable, args } => {
-                    let executable = self.get_session_exec_path(&session_id, &executable);
+                    // Allow executing executables from arbitrary location
+                    // DO NOT merge it into real golem-unlimited repository
+                    // let executable = self.get_session_exec_path(&session_id, &executable);
                     future_chain = Box::new(future_chain.and_then(move |mut v, act, _ctx| {
                         let mut vc = v.clone();
                         info!("executing sync: {} {:?}", executable, args);
@@ -296,7 +298,9 @@ impl Handler<SessionUpdate> for HdMan {
                     }));
                 }
                 Command::Start { executable, args } => {
-                    let executable = self.get_session_exec_path(&session_id, &executable);
+                    // Allow executing executables from arbitrary location
+                    // DO NOT merge it into real golem-unlimited repository
+                    // let executable = self.get_session_exec_path(&session_id, &executable);
                     future_chain = Box::new(future_chain.and_then(move |mut v, act, _ctx| {
                         info!("executing async: {} {:?}", executable, args);
                         // TODO: critical section
